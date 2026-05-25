@@ -33,15 +33,6 @@ fun LogWorkoutScreen(userPlan: UserPlan) {
 }
 
 @Composable
-fun QuestScreen(userPlan: UserPlan) {
-    PlaceholderScreen(
-        title = "Quests",
-        description = "Daily quests for free users and adaptive quests for premium users.",
-        userPlan = userPlan
-    )
-}
-
-@Composable
 fun ProgressScreen(userPlan: UserPlan) {
     PlaceholderScreen(
         title = "Progress",
