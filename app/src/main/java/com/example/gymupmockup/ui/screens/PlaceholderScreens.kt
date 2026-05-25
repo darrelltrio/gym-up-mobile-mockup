@@ -24,15 +24,6 @@ import com.example.gymupmockup.ui.theme.GymTextMain
 import com.example.gymupmockup.ui.theme.GymTextMuted
 
 @Composable
-fun ProgressScreen(userPlan: UserPlan) {
-    PlaceholderScreen(
-        title = "Progress",
-        description = "Recent history for free users, full history and muscle balance for premium users.",
-        userPlan = userPlan
-    )
-}
-
-@Composable
 fun ProfileScreen(userPlan: UserPlan) {
     PlaceholderScreen(
         title = "Profile",
