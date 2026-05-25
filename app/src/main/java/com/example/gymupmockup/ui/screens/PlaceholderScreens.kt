@@ -24,15 +24,6 @@ import com.example.gymupmockup.ui.theme.GymTextMain
 import com.example.gymupmockup.ui.theme.GymTextMuted
 
 @Composable
-fun LogWorkoutScreen(userPlan: UserPlan) {
-    PlaceholderScreen(
-        title = "Log Workout",
-        description = "Workout timer, selected exercises, set logging, and premium smart set hints.",
-        userPlan = userPlan
-    )
-}
-
-@Composable
 fun ProgressScreen(userPlan: UserPlan) {
     PlaceholderScreen(
         title = "Progress",
