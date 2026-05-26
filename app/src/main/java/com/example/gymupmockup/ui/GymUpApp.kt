@@ -20,14 +20,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.gymupmockup.model.AppRole
 import com.example.gymupmockup.model.UserPlan
-import com.example.gymupmockup.ui.components.PremiumToggle
+import com.example.gymupmockup.ui.components.RoleSelector
 import com.example.gymupmockup.ui.navigation.BottomNav
 import com.example.gymupmockup.ui.screens.HomeScreen
 import com.example.gymupmockup.ui.screens.LogWorkoutScreen
 import com.example.gymupmockup.ui.screens.ProfileScreen
 import com.example.gymupmockup.ui.screens.ProgressScreen
 import com.example.gymupmockup.ui.screens.QuestScreen
+import com.example.gymupmockup.ui.screens.SuperAdminScreen
 import com.example.gymupmockup.ui.theme.GymBlack
 import com.example.gymupmockup.ui.theme.GymGold
 import com.example.gymupmockup.ui.theme.GymTextMuted
@@ -35,15 +37,17 @@ import com.example.gymupmockup.ui.theme.GymTextMuted
 @Composable
 fun GymUpApp() {
     var selectedTab by remember { mutableIntStateOf(0) }
-    var userPlan by remember { mutableStateOf(UserPlan.FREE) }
+    var selectedRole by remember { mutableStateOf(AppRole.MEMBER) }
 
     Scaffold(
         containerColor = GymBlack,
         bottomBar = {
-            BottomNav(
-                selectedTab = selectedTab,
-                onTabSelected = { selectedTab = it }
-            )
+            if (selectedRole == AppRole.MEMBER) {
+                BottomNav(
+                    selectedTab = selectedTab,
+                    onTabSelected = { selectedTab = it }
+                )
+            }
         }
     ) { innerPadding ->
         Column(
@@ -53,58 +57,112 @@ fun GymUpApp() {
                 .padding(innerPadding)
         ) {
             AppTopBar(
-                userPlan = userPlan,
-                onTogglePlan = {
-                    userPlan = if (userPlan == UserPlan.FREE) {
-                        UserPlan.PREMIUM
-                    } else {
-                        UserPlan.FREE
-                    }
+                selectedRole = selectedRole,
+                onRoleSelected = { role ->
+                    selectedRole = role
+                    selectedTab = 0
                 }
             )
 
-            when (selectedTab) {
-                0 -> HomeScreen(userPlan)
-                1 -> LogWorkoutScreen(userPlan)
-                2 -> QuestScreen(userPlan)
-                3 -> ProgressScreen(userPlan)
-                4 -> ProfileScreen(userPlan)
+            when (selectedRole) {
+                AppRole.SUPER_ADMIN -> {
+                    SuperAdminScreen()
+                }
+
+                AppRole.OWNER_STAFF -> {
+                    OwnerStaffPlaceholderScreen()
+                }
+
+                AppRole.MEMBER -> {
+                    MemberContent(selectedTab = selectedTab)
+                }
             }
         }
     }
 }
 
 @Composable
-private fun AppTopBar(
-    userPlan: UserPlan,
-    onTogglePlan: () -> Unit
+private fun MemberContent(
+    selectedTab: Int
 ) {
-    Row(
+    val memberAccess = UserPlan.PREMIUM
+
+    when (selectedTab) {
+        0 -> HomeScreen(memberAccess)
+        1 -> LogWorkoutScreen(memberAccess)
+        2 -> QuestScreen(memberAccess)
+        3 -> ProgressScreen(memberAccess)
+        4 -> ProfileScreen(memberAccess)
+    }
+}
+
+@Composable
+private fun AppTopBar(
+    selectedRole: AppRole,
+    onRoleSelected: (AppRole) -> Unit
+) {
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .background(GymBlack)
             .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        Column {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column {
+                Text(
+                    text = "GYM-UP",
+                    color = GymGold,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Black
+                )
+
+                Text(
+                    text = "Multi-role gym management mockup",
+                    color = GymTextMuted,
+                    fontSize = 12.sp
+                )
+            }
+
             Text(
-                text = "GYM-UP",
+                text = selectedRole.label,
                 color = GymGold,
-                fontSize = 22.sp,
+                fontSize = 13.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+
+        RoleSelector(
+            selectedRole = selectedRole,
+            onRoleSelected = onRoleSelected
+        )
+    }
+}
+
+@Composable
+private fun OwnerStaffPlaceholderScreen() {
+    com.example.gymupmockup.ui.components.GymUpScreen {
+        com.example.gymupmockup.ui.components.SectionTitle(
+            title = "Owner / Staff Dashboard"
+        )
+
+        com.example.gymupmockup.ui.components.GymUpCard {
+            Text(
+                text = "Coming Next",
+                color = GymGold,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.Black
             )
 
             Text(
-                text = "Freemium mockup demo",
+                text = "This role will handle member registration, member management, gym leaderboard, and staff-side monitoring.",
                 color = GymTextMuted,
-                fontSize = 12.sp
+                fontSize = 14.sp
             )
         }
-
-        PremiumToggle(
-            userPlan = userPlan,
-            onToggle = onTogglePlan
-        )
     }
 }
