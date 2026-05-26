@@ -38,6 +38,8 @@ import com.example.gymupmockup.ui.screens.ProgressScreen
 import com.example.gymupmockup.ui.screens.QuestScreen
 import com.example.gymupmockup.ui.screens.SuperAdminDashboardScreen
 import com.example.gymupmockup.ui.screens.SuperAdminGymPartnersScreen
+import com.example.gymupmockup.ui.screens.RegisterMemberScreen
+import com.example.gymupmockup.ui.screens.RegisterStaffScreen
 import com.example.gymupmockup.ui.theme.GymBlack
 import com.example.gymupmockup.ui.theme.GymGold
 import com.example.gymupmockup.ui.theme.GymTextMuted
@@ -49,6 +51,8 @@ fun GymUpApp() {
     var memberTab by remember { mutableIntStateOf(0) }
     var superAdminTab by remember { mutableStateOf(SuperAdminTab.DASHBOARD) }
     var ownerStaffTab by remember { mutableStateOf(OwnerStaffTab.DASHBOARD) }
+    var showRegisterMember by remember { mutableStateOf(false) }
+    var showRegisterStaff by remember { mutableStateOf(false) }
 
     Scaffold(
         containerColor = GymBlack,
@@ -64,7 +68,11 @@ fun GymUpApp() {
                 AppRole.OWNER_STAFF -> {
                     OwnerStaffBottomNav(
                         selectedTab = ownerStaffTab,
-                        onTabSelected = { ownerStaffTab = it }
+                        onTabSelected = {
+                            ownerStaffTab = it
+                            showRegisterMember = false
+                            showRegisterStaff = false
+                        }
                     )
                 }
 
@@ -90,6 +98,8 @@ fun GymUpApp() {
                     memberTab = 0
                     superAdminTab = SuperAdminTab.DASHBOARD
                     ownerStaffTab = OwnerStaffTab.DASHBOARD
+                    showRegisterMember = false
+                    showRegisterStaff = false
                 }
             )
 
@@ -102,10 +112,41 @@ fun GymUpApp() {
                 }
 
                 AppRole.OWNER_STAFF -> {
-                    when (ownerStaffTab) {
-                        OwnerStaffTab.DASHBOARD -> OwnerStaffDashboardScreen()
-                        OwnerStaffTab.MEMBERS -> OwnerStaffMembersScreen()
-                        OwnerStaffTab.STAFF -> OwnerStaffAccountsScreen()
+                    when {
+                        showRegisterMember -> {
+                            RegisterMemberScreen()
+                        }
+
+                        showRegisterStaff -> {
+                            RegisterStaffScreen(
+                                onBackToStaffAccounts = {
+                                    showRegisterStaff = false
+                                    ownerStaffTab = OwnerStaffTab.STAFF
+                                }
+                            )
+                        }
+
+                        else -> {
+                            when (ownerStaffTab) {
+                                OwnerStaffTab.DASHBOARD -> OwnerStaffDashboardScreen()
+
+                                OwnerStaffTab.MEMBERS -> {
+                                    OwnerStaffMembersScreen(
+                                        onOpenRegisterMember = {
+                                            showRegisterMember = true
+                                        }
+                                    )
+                                }
+
+                                OwnerStaffTab.STAFF -> {
+                                    OwnerStaffAccountsScreen(
+                                        onOpenRegisterStaff = {
+                                            showRegisterStaff = true
+                                        }
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
 

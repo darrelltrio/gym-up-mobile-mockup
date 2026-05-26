@@ -5,6 +5,7 @@ import com.example.gymupmockup.model.LeaderboardUser
 import com.example.gymupmockup.model.OwnerGymStats
 import com.example.gymupmockup.model.StaffMember
 import com.example.gymupmockup.model.RegisterMemberForm
+import com.example.gymupmockup.model.RegisterStaffForm
 
 object OwnerStaffMockData {
 
@@ -15,6 +16,15 @@ object OwnerStaffMockData {
         goal = "Fat Loss",
         membershipType = "Monthly Gym Member",
         startDate = "Today"
+    )
+
+    val sampleStaffRegistrationForm = RegisterStaffForm(
+        fullName = "Rafael Aditya",
+        email = "rafael.staff@example.com",
+        phone = "+62 812-7788-9900",
+        role = "Front Desk Staff",
+        accessLevel = "Member Registration + Activity Monitoring",
+        assignedBranch = "Iron Temple Gym - Gading Serpong"
     )
 
     val gymStats = OwnerGymStats(

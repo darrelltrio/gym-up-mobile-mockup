@@ -89,7 +89,8 @@ fun OwnerStaffDashboardScreen() {
 }
 
 @Composable
-fun OwnerStaffMembersScreen() {
+fun OwnerStaffMembersScreen(onOpenRegisterMember: () -> Unit
+) {
     GymUpScreen {
         PremiumCard {
             Text(
@@ -106,7 +107,7 @@ fun OwnerStaffMembersScreen() {
             )
         }
 
-        RegisterMemberPreviewCard()
+        RegisterMemberPreviewCard(onOpenRegisterMember = onOpenRegisterMember)
 
         SectionTitle(title = "Members")
 
@@ -121,7 +122,7 @@ fun OwnerStaffMembersScreen() {
 }
 
 @Composable
-fun OwnerStaffAccountsScreen() {
+fun OwnerStaffAccountsScreen(onOpenRegisterStaff: () -> Unit) {
     GymUpScreen {
         PremiumCard {
             Text(
@@ -138,6 +139,9 @@ fun OwnerStaffAccountsScreen() {
             )
         }
 
+        RegisterStaffPreviewCard(
+            onOpenRegisterStaff = onOpenRegisterStaff
+        )
         SectionTitle(title = "Active Staff")
 
         OwnerStaffMockData.staff.forEach { staff ->
@@ -147,7 +151,9 @@ fun OwnerStaffAccountsScreen() {
 }
 
 @Composable
-private fun RegisterMemberPreviewCard() {
+private fun RegisterMemberPreviewCard(
+    onOpenRegisterMember: () -> Unit
+) {
     PremiumCard {
         Text(
             text = "Register Member",
@@ -164,7 +170,10 @@ private fun RegisterMemberPreviewCard() {
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        GoldButton(text = "+ Open Register Form")
+        GoldButton(
+            text = "+ Open Register Form",
+            onClick = onOpenRegisterMember
+        )
     }
 }
 
@@ -260,14 +269,10 @@ private fun StaffActionCard() {
         )
 
         Text(
-            text = "Register new gym members, review member status, and monitor activity from one staff dashboard.",
+            text = "Review member status, monitor activity, and manage gym operations from one staff dashboard.",
             color = GymTextMuted,
             fontSize = 13.sp
         )
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        GoldButton(text = "+ Register New Member")
     }
 }
 
@@ -447,6 +452,33 @@ private fun InfoRow(
             color = GymTextMain,
             fontSize = 13.sp,
             fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+@Composable
+private fun RegisterStaffPreviewCard(
+    onOpenRegisterStaff: () -> Unit
+) {
+    PremiumCard {
+        Text(
+            text = "Register Staff",
+            color = GymGold,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Black
+        )
+
+        Text(
+            text = "Create a staff account for front desk, trainer, or membership admin access.",
+            color = GymTextMuted,
+            fontSize = 13.sp
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        GoldButton(
+            text = "+ Open Staff Registration",
+            onClick = onOpenRegisterStaff
         )
     }
 }
