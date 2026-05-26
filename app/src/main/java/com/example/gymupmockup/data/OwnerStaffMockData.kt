@@ -10,8 +10,8 @@ import com.example.gymupmockup.model.RegisterStaffForm
 object OwnerStaffMockData {
 
     val sampleRegistrationForm = RegisterMemberForm(
-        fullName = "Gabriela Zahrafani",
-        email = "gabriela@example.com",
+        fullName = "Rusdi Ngawi",
+        email = "Rusdi@example.com",
         phone = "+62 812-3456-7890",
         goal = "Fat Loss",
         membershipType = "Monthly Gym Member",
