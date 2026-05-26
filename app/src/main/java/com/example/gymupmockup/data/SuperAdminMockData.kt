@@ -2,6 +2,7 @@ package com.example.gymupmockup.data
 
 import com.example.gymupmockup.model.GymPartner
 import com.example.gymupmockup.model.SuperAdminStats
+import com.example.gymupmockup.model.RegisterGymOwnerForm
 
 object SuperAdminMockData {
 
@@ -10,6 +11,16 @@ object SuperAdminMockData {
         totalMembers = 1248,
         totalOwners = 8,
         averageRetention = "82%"
+    )
+
+    val sampleGymOwnerRegistrationForm = RegisterGymOwnerForm(
+        gymName = "Olympus Strength Club",
+        gymLocation = "Alam Sutera",
+        ownerName = "Jonathan Wijaya",
+        ownerEmail = "jonathan.owner@example.com",
+        ownerPhone = "+62 812-9988-7766",
+        accessLevel = "Gym Owner Access",
+        initialStaffLimit = "5 staff accounts"
     )
 
     val gymPartners = listOf(

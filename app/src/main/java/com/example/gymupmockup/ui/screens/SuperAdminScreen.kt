@@ -35,7 +35,7 @@ import com.example.gymupmockup.ui.theme.GymTextMain
 import com.example.gymupmockup.ui.theme.GymTextMuted
 
 @Composable
-fun SuperAdminDashboardScreen() {
+fun SuperAdminDashboardScreen(onOpenRegisterGymOwner: () -> Unit) {
     val stats = SuperAdminMockData.platformStats
 
     GymUpScreen {
@@ -79,7 +79,7 @@ fun SuperAdminDashboardScreen() {
             )
         }
 
-        SuperAdminActionCard()
+        SuperAdminActionCard(onOpenRegisterGymOwner = onOpenRegisterGymOwner)
 
         SectionTitle(title = "Recent Platform Activity")
 
@@ -161,7 +161,7 @@ private fun SuperAdminHeroCard() {
 }
 
 @Composable
-private fun SuperAdminActionCard() {
+private fun SuperAdminActionCard(onOpenRegisterGymOwner: () -> Unit) {
     PremiumCard {
         Text(
             text = "Platform Controls",
@@ -178,7 +178,8 @@ private fun SuperAdminActionCard() {
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        GoldButton(text = "+ Register Gym Owner")
+        GoldButton(text = "+ Register Gym Owner",
+                onClick = onOpenRegisterGymOwner)
     }
 }
 

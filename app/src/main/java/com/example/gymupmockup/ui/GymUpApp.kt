@@ -40,6 +40,7 @@ import com.example.gymupmockup.ui.screens.SuperAdminDashboardScreen
 import com.example.gymupmockup.ui.screens.SuperAdminGymPartnersScreen
 import com.example.gymupmockup.ui.screens.RegisterMemberScreen
 import com.example.gymupmockup.ui.screens.RegisterStaffScreen
+import com.example.gymupmockup.ui.screens.RegisterGymOwnerScreen
 import com.example.gymupmockup.ui.theme.GymBlack
 import com.example.gymupmockup.ui.theme.GymGold
 import com.example.gymupmockup.ui.theme.GymTextMuted
@@ -53,6 +54,7 @@ fun GymUpApp() {
     var ownerStaffTab by remember { mutableStateOf(OwnerStaffTab.DASHBOARD) }
     var showRegisterMember by remember { mutableStateOf(false) }
     var showRegisterStaff by remember { mutableStateOf(false) }
+    var showRegisterGymOwner by remember { mutableStateOf(false) }
 
     Scaffold(
         containerColor = GymBlack,
@@ -61,7 +63,10 @@ fun GymUpApp() {
                 AppRole.SUPER_ADMIN -> {
                     SuperAdminBottomNav(
                         selectedTab = superAdminTab,
-                        onTabSelected = { superAdminTab = it }
+                        onTabSelected = {
+                            superAdminTab = it
+                            showRegisterGymOwner = false
+                        }
                     )
                 }
 
@@ -100,14 +105,37 @@ fun GymUpApp() {
                     ownerStaffTab = OwnerStaffTab.DASHBOARD
                     showRegisterMember = false
                     showRegisterStaff = false
+                    showRegisterGymOwner = false
                 }
             )
 
             when (selectedRole) {
                 AppRole.SUPER_ADMIN -> {
-                    when (superAdminTab) {
-                        SuperAdminTab.DASHBOARD -> SuperAdminDashboardScreen()
-                        SuperAdminTab.GYM_PARTNERS -> SuperAdminGymPartnersScreen()
+                    when {
+                        showRegisterGymOwner -> {
+                            RegisterGymOwnerScreen(
+                                onBackToSuperAdminDashboard = {
+                                    showRegisterGymOwner = false
+                                    superAdminTab = SuperAdminTab.DASHBOARD
+                                }
+                            )
+                        }
+
+                        else -> {
+                            when (superAdminTab) {
+                                SuperAdminTab.DASHBOARD -> {
+                                    SuperAdminDashboardScreen(
+                                        onOpenRegisterGymOwner = {
+                                            showRegisterGymOwner = true
+                                        }
+                                    )
+                                }
+
+                                SuperAdminTab.GYM_PARTNERS -> {
+                                    SuperAdminGymPartnersScreen()
+                                }
+                            }
+                        }
                     }
                 }
 
