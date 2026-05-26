@@ -4,8 +4,18 @@ import com.example.gymupmockup.model.GymMember
 import com.example.gymupmockup.model.LeaderboardUser
 import com.example.gymupmockup.model.OwnerGymStats
 import com.example.gymupmockup.model.StaffMember
+import com.example.gymupmockup.model.RegisterMemberForm
 
 object OwnerStaffMockData {
+
+    val sampleRegistrationForm = RegisterMemberForm(
+        fullName = "Gabriela Zahrafani",
+        email = "gabriela@example.com",
+        phone = "+62 812-3456-7890",
+        goal = "Fat Loss",
+        membershipType = "Monthly Gym Member",
+        startDate = "Today"
+    )
 
     val gymStats = OwnerGymStats(
         gymName = "Iron Temple Gym",
@@ -36,7 +46,7 @@ object OwnerStaffMockData {
             lastWorkout = "Yesterday"
         ),
         GymMember(
-            name = "Nadine",
+            name = "Rusdi",
             membershipId = "ITG-0003",
             goal = "Fat Loss",
             status = "Active",
@@ -105,7 +115,7 @@ object OwnerStaffMockData {
     val recentActivities = listOf(
         "Darrell completed Push Day and earned 300 XP.",
         "Marco has not logged a workout for 9 days.",
-        "Nadine updated body goal to Fat Loss.",
+        "Rusdi updated body goal to Fat Loss.",
         "Brandon unlocked Streak Spark badge.",
         "New member registered: Gabriela."
     )

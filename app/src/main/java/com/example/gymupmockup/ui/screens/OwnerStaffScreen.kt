@@ -36,7 +36,7 @@ import com.example.gymupmockup.ui.theme.GymTextMain
 import com.example.gymupmockup.ui.theme.GymTextMuted
 
 @Composable
-fun OwnerStaffScreen() {
+fun OwnerStaffDashboardScreen() {
     val stats = OwnerStaffMockData.gymStats
 
     GymUpScreen {
@@ -82,7 +82,33 @@ fun OwnerStaffScreen() {
 
         StaffActionCard()
 
-        SectionTitle(title = "Member Management")
+        SectionTitle(title = "Recent Member Activity")
+
+        RecentMemberActivityCard()
+    }
+}
+
+@Composable
+fun OwnerStaffMembersScreen() {
+    GymUpScreen {
+        PremiumCard {
+            Text(
+                text = "Member Management",
+                color = GymGold,
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Black
+            )
+
+            Text(
+                text = "Register members, review activity status, and monitor gym leaderboard.",
+                color = GymTextMain,
+                fontSize = 14.sp
+            )
+        }
+
+        RegisterMemberPreviewCard()
+
+        SectionTitle(title = "Members")
 
         OwnerStaffMockData.members.forEach { member ->
             MemberManagementCard(member = member)
@@ -90,17 +116,86 @@ fun OwnerStaffScreen() {
 
         SectionTitle(title = "Gym Leaderboard")
 
-        GymLeaderboardCard()
+        NeutralGymLeaderboardCard()
+    }
+}
 
-        SectionTitle(title = "Staff Accounts")
+@Composable
+fun OwnerStaffAccountsScreen() {
+    GymUpScreen {
+        PremiumCard {
+            Text(
+                text = "Staff Accounts",
+                color = GymGold,
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Black
+            )
+
+            Text(
+                text = "View owner and staff accounts registered under this gym branch.",
+                color = GymTextMain,
+                fontSize = 14.sp
+            )
+        }
+
+        SectionTitle(title = "Active Staff")
 
         OwnerStaffMockData.staff.forEach { staff ->
             StaffAccountCard(staff = staff)
         }
+    }
+}
 
-        SectionTitle(title = "Recent Member Activity")
+@Composable
+private fun RegisterMemberPreviewCard() {
+    PremiumCard {
+        Text(
+            text = "Register Member",
+            color = GymGold,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Black
+        )
 
-        RecentMemberActivityCard()
+        Text(
+            text = "Create a new member account and activate full Gym-Up access for workout tracking, quests, progress, and nutrition.",
+            color = GymTextMuted,
+            fontSize = 13.sp
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        GoldButton(text = "+ Open Register Form")
+    }
+}
+
+@Composable
+private fun NeutralGymLeaderboardCard() {
+    GymUpCard {
+        OwnerStaffMockData.gymLeaderboard.forEach { user ->
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(
+                        color = GymSurface,
+                        shape = RoundedCornerShape(10.dp)
+                    )
+                    .padding(10.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = "${user.rank}. ${user.name}",
+                    color = GymTextMain,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 14.sp
+                )
+
+                Text(
+                    text = user.totalVolume,
+                    color = GymTextMuted,
+                    fontSize = 13.sp
+                )
+            }
+        }
     }
 }
 

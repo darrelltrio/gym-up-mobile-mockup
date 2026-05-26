@@ -35,7 +35,7 @@ import com.example.gymupmockup.ui.theme.GymTextMain
 import com.example.gymupmockup.ui.theme.GymTextMuted
 
 @Composable
-fun SuperAdminScreen() {
+fun SuperAdminDashboardScreen() {
     val stats = SuperAdminMockData.platformStats
 
     GymUpScreen {
@@ -81,15 +81,35 @@ fun SuperAdminScreen() {
 
         SuperAdminActionCard()
 
-        SectionTitle(title = "Gym Partners")
+        SectionTitle(title = "Recent Platform Activity")
+
+        RecentActivityCard()
+    }
+}
+
+@Composable
+fun SuperAdminGymPartnersScreen() {
+    GymUpScreen {
+        PremiumCard {
+            Text(
+                text = "Gym Partners",
+                color = GymGold,
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Black
+            )
+
+            Text(
+                text = "View registered gym partners, owner accounts, retention, and branch status.",
+                color = GymTextMain,
+                fontSize = 14.sp
+            )
+        }
+
+        SectionTitle(title = "Registered Gyms")
 
         SuperAdminMockData.gymPartners.forEach { gym ->
             GymPartnerCard(gym = gym)
         }
-
-        SectionTitle(title = "Recent Platform Activity")
-
-        RecentActivityCard()
     }
 }
 

@@ -21,33 +21,59 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gymupmockup.model.AppRole
+import com.example.gymupmockup.model.OwnerStaffTab
+import com.example.gymupmockup.model.SuperAdminTab
 import com.example.gymupmockup.model.UserPlan
 import com.example.gymupmockup.ui.components.RoleSelector
 import com.example.gymupmockup.ui.navigation.BottomNav
+import com.example.gymupmockup.ui.navigation.OwnerStaffBottomNav
+import com.example.gymupmockup.ui.navigation.SuperAdminBottomNav
 import com.example.gymupmockup.ui.screens.HomeScreen
 import com.example.gymupmockup.ui.screens.LogWorkoutScreen
+import com.example.gymupmockup.ui.screens.OwnerStaffAccountsScreen
+import com.example.gymupmockup.ui.screens.OwnerStaffDashboardScreen
+import com.example.gymupmockup.ui.screens.OwnerStaffMembersScreen
 import com.example.gymupmockup.ui.screens.ProfileScreen
 import com.example.gymupmockup.ui.screens.ProgressScreen
 import com.example.gymupmockup.ui.screens.QuestScreen
-import com.example.gymupmockup.ui.screens.SuperAdminScreen
-import com.example.gymupmockup.ui.screens.OwnerStaffScreen
+import com.example.gymupmockup.ui.screens.SuperAdminDashboardScreen
+import com.example.gymupmockup.ui.screens.SuperAdminGymPartnersScreen
 import com.example.gymupmockup.ui.theme.GymBlack
 import com.example.gymupmockup.ui.theme.GymGold
 import com.example.gymupmockup.ui.theme.GymTextMuted
 
 @Composable
 fun GymUpApp() {
-    var selectedTab by remember { mutableIntStateOf(0) }
     var selectedRole by remember { mutableStateOf(AppRole.MEMBER) }
+
+    var memberTab by remember { mutableIntStateOf(0) }
+    var superAdminTab by remember { mutableStateOf(SuperAdminTab.DASHBOARD) }
+    var ownerStaffTab by remember { mutableStateOf(OwnerStaffTab.DASHBOARD) }
 
     Scaffold(
         containerColor = GymBlack,
         bottomBar = {
-            if (selectedRole == AppRole.MEMBER) {
-                BottomNav(
-                    selectedTab = selectedTab,
-                    onTabSelected = { selectedTab = it }
-                )
+            when (selectedRole) {
+                AppRole.SUPER_ADMIN -> {
+                    SuperAdminBottomNav(
+                        selectedTab = superAdminTab,
+                        onTabSelected = { superAdminTab = it }
+                    )
+                }
+
+                AppRole.OWNER_STAFF -> {
+                    OwnerStaffBottomNav(
+                        selectedTab = ownerStaffTab,
+                        onTabSelected = { ownerStaffTab = it }
+                    )
+                }
+
+                AppRole.MEMBER -> {
+                    BottomNav(
+                        selectedTab = memberTab,
+                        onTabSelected = { memberTab = it }
+                    )
+                }
             }
         }
     ) { innerPadding ->
@@ -61,21 +87,30 @@ fun GymUpApp() {
                 selectedRole = selectedRole,
                 onRoleSelected = { role ->
                     selectedRole = role
-                    selectedTab = 0
+                    memberTab = 0
+                    superAdminTab = SuperAdminTab.DASHBOARD
+                    ownerStaffTab = OwnerStaffTab.DASHBOARD
                 }
             )
 
             when (selectedRole) {
                 AppRole.SUPER_ADMIN -> {
-                    SuperAdminScreen()
+                    when (superAdminTab) {
+                        SuperAdminTab.DASHBOARD -> SuperAdminDashboardScreen()
+                        SuperAdminTab.GYM_PARTNERS -> SuperAdminGymPartnersScreen()
+                    }
                 }
 
                 AppRole.OWNER_STAFF -> {
-                    OwnerStaffScreen()
+                    when (ownerStaffTab) {
+                        OwnerStaffTab.DASHBOARD -> OwnerStaffDashboardScreen()
+                        OwnerStaffTab.MEMBERS -> OwnerStaffMembersScreen()
+                        OwnerStaffTab.STAFF -> OwnerStaffAccountsScreen()
+                    }
                 }
 
                 AppRole.MEMBER -> {
-                    MemberContent(selectedTab = selectedTab)
+                    MemberContent(selectedTab = memberTab)
                 }
             }
         }
