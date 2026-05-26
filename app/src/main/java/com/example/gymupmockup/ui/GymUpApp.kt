@@ -30,6 +30,7 @@ import com.example.gymupmockup.ui.screens.ProfileScreen
 import com.example.gymupmockup.ui.screens.ProgressScreen
 import com.example.gymupmockup.ui.screens.QuestScreen
 import com.example.gymupmockup.ui.screens.SuperAdminScreen
+import com.example.gymupmockup.ui.screens.OwnerStaffScreen
 import com.example.gymupmockup.ui.theme.GymBlack
 import com.example.gymupmockup.ui.theme.GymGold
 import com.example.gymupmockup.ui.theme.GymTextMuted
@@ -70,7 +71,7 @@ fun GymUpApp() {
                 }
 
                 AppRole.OWNER_STAFF -> {
-                    OwnerStaffPlaceholderScreen()
+                    OwnerStaffScreen()
                 }
 
                 AppRole.MEMBER -> {
@@ -140,29 +141,5 @@ private fun AppTopBar(
             selectedRole = selectedRole,
             onRoleSelected = onRoleSelected
         )
-    }
-}
-
-@Composable
-private fun OwnerStaffPlaceholderScreen() {
-    com.example.gymupmockup.ui.components.GymUpScreen {
-        com.example.gymupmockup.ui.components.SectionTitle(
-            title = "Owner / Staff Dashboard"
-        )
-
-        com.example.gymupmockup.ui.components.GymUpCard {
-            Text(
-                text = "Coming Next",
-                color = GymGold,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Black
-            )
-
-            Text(
-                text = "This role will handle member registration, member management, gym leaderboard, and staff-side monitoring.",
-                color = GymTextMuted,
-                fontSize = 14.sp
-            )
-        }
     }
 }
