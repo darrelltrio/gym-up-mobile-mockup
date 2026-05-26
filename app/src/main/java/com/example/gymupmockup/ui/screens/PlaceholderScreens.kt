@@ -24,15 +24,6 @@ import com.example.gymupmockup.ui.theme.GymTextMain
 import com.example.gymupmockup.ui.theme.GymTextMuted
 
 @Composable
-fun ProfileScreen(userPlan: UserPlan) {
-    PlaceholderScreen(
-        title = "Profile",
-        description = "Body stats, badges, nutrition guide, and freemium membership state.",
-        userPlan = userPlan
-    )
-}
-
-@Composable
 private fun PlaceholderScreen(
     title: String,
     description: String,
