@@ -65,7 +65,7 @@ fun ProgressScreen(
         } else {
             LockedPremiumCard(
                 title = "Progress Insight Locked",
-                description = "Premium unlocks smart progress analysis, muscle balance tracking, and weekly training recommendations."
+                description = "Member access includes smart progress analysis, muscle balance tracking, and weekly training recommendations."
             )
 
             LockedPremiumCard(
@@ -96,7 +96,7 @@ private fun ProgressHeaderCard(
             )
 
             Text(
-                text = "Premium mode analyzes your workout pattern and turns it into actionable training feedback.",
+                text = "Member access analyzes your workout pattern and turns it into actionable training feedback.",
                 color = GymTextMain,
                 fontSize = 14.sp
             )
@@ -123,7 +123,7 @@ private fun ProgressHeaderCard(
             )
 
             Text(
-                text = "Premium insights are available as locked previews.",
+                text = "Progress insights are included for registered gym members.",
                 color = GymGold,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Bold

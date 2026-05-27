@@ -132,8 +132,8 @@ private fun WelcomeCard(
                     )
 
                     HomeMiniStat(
-                        value = if (userPlan == UserPlan.PREMIUM) "Premium" else "Free",
-                        label = "Plan"
+                        value = if (userPlan == UserPlan.PREMIUM) "Full Access" else "Free",
+                        label = "Access"
                     )
                 }
             }
@@ -257,7 +257,7 @@ private fun LeaderboardPreview(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Premium insight: You need 23,400 kg more volume to overtake Sarah.",
+                text = "Member insight: You need 23,400 kg more volume to overtake Sarah.",
                 color = GymGold,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold

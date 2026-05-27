@@ -73,7 +73,7 @@ fun LogWorkoutScreen(
         } else {
             LockedPremiumCard(
                 title = "Smart Set Recommendation Locked",
-                description = "Premium users get fatigue hints, suggested next exercise, and volume-based workout guidance."
+                description = "Registered Gym Members get fatigue hints, suggested next exercise, and volume-based workout guidance."
             )
         }
 

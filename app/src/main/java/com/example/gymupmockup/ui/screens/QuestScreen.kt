@@ -38,7 +38,7 @@ fun QuestScreen(
             QuestCard(quest = quest)
         }
 
-        SectionTitle(title = "Adaptive Premium Quests")
+        SectionTitle(title = "Adaptive Member Quests")
 
         if (userPlan == UserPlan.PREMIUM) {
             MockData.premiumQuests.forEach { quest ->
@@ -48,7 +48,7 @@ fun QuestScreen(
             MockData.premiumQuests.forEach { quest ->
                 LockedPremiumCard(
                     title = quest.title,
-                    description = "Premium adaptive quest. Upgrade to unlock this personalized challenge and its badge reward."
+                    description = "This adaptive quest is included for full gym member access."
                 )
             }
         }
@@ -73,7 +73,7 @@ private fun QuestHeaderCard(
             )
 
             Text(
-                text = "Premium mode unlocks adaptive quests based on your mock workout pattern.",
+                text = "Member access includes adaptive quests based on your mock workout pattern.",
                 color = GymTextMain,
                 fontSize = 14.sp
             )
@@ -100,7 +100,7 @@ private fun QuestHeaderCard(
             )
 
             Text(
-                text = "Premium adaptive quests are visible as locked previews.",
+                text = "Adaptive quests are included for registered gym members.",
                 color = GymGold,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Bold
@@ -160,7 +160,7 @@ private fun LockedBadgePreview(
         }
 
         Text(
-            text = "Premium badge locked. Complete adaptive quests to unlock this badge.",
+            text = "Member badge locked. Complete adaptive quests to unlock this badge.",
             color = GymTextMuted,
             fontSize = 13.sp
         )

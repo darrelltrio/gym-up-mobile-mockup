@@ -101,7 +101,7 @@ private fun ProfileHeaderCard(
 
                 Text(
                     text = if (userPlan == UserPlan.PREMIUM) {
-                        "Premium Member"
+                        "Gym Member Access"
                     } else {
                         "Free Member"
                     },
@@ -157,7 +157,7 @@ private fun NutritionCard(
     userPlan: UserPlan
 ) {
     if (userPlan == UserPlan.PREMIUM) {
-        PremiumNutritionCard()
+        MemberNutritionCard()
     } else {
         FreeNutritionCard()
     }
@@ -196,10 +196,10 @@ private fun FreeNutritionCard() {
 }
 
 @Composable
-private fun PremiumNutritionCard() {
+private fun MemberNutritionCard() {
     PremiumCard {
         Text(
-            text = "Premium Nutrition Plan",
+            text = "Member Nutrition Plan",
             color = GymGold,
             fontSize = 18.sp,
             fontWeight = FontWeight.Black
@@ -266,20 +266,20 @@ private fun MembershipCard(
     if (userPlan == UserPlan.PREMIUM) {
         PremiumCard {
             Text(
-                text = "Premium Active",
+                text = "Full Gym Access Active",
                 color = GymGold,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Black
             )
 
             Text(
-                text = "Unlocked: Adaptive quests, smart set hints, muscle balance, progress insights, and macro nutrition.",
+                text = "Included: Adaptive quests, smart set hints, muscle balance, progress insights, and macro nutrition.",
                 color = GymTextMain,
                 fontSize = 14.sp
             )
 
             Text(
-                text = "This mockup uses the top toggle to simulate subscription state.",
+                text = "This member account receives full Gym-Up access from the registered gym.",
                 color = GymTextMuted,
                 fontSize = 13.sp
             )

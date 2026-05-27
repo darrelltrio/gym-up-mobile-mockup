@@ -127,6 +127,6 @@ object OwnerStaffMockData {
         "Marco has not logged a workout for 9 days.",
         "Rusdi updated body goal to Fat Loss.",
         "Brandon unlocked Streak Spark badge.",
-        "New member registered: Gabriela."
+        "New member registered: Rusdi."
     )
 }
